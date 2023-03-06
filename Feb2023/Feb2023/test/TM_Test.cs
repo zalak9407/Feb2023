@@ -1,16 +1,52 @@
-﻿using OpenQA.Selenium.Chrome;
+﻿using Feb2023.pages;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
-using Feb2023.pages;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NUnit.Framework;
+using Feb2023.utilities;
 
-IWebDriver driver = new ChromeDriver();
+namespace Feb2023.test
+{
+    [TestFixture]
+    public class TM_Test:Commondriver
+    {
+        [SetUp]
+        public void loginsteps()
+        {
+           driver = new ChromeDriver(@"C:\Users\patel\Desktop\Feb2023");
+            LoginPage loginobj = new LoginPage();
+            loginobj.loginmethod(driver);
 
-LoginPage loginobj = new LoginPage();
-loginobj.loginmethod(driver);
-
-HomePage homeobj = new HomePage();
-homeobj.GoToTmPage(driver);
-
-TMPage tmobj = new TMPage();
-tmobj.CreateTm(driver);
-tmobj.EditTm(driver);
-tmobj.DeleteTm(driver);
+            HomePage homeobj = new HomePage();
+            homeobj.GoToTmPage(driver);
+        }
+        [Test,Order(1)]
+        public void createsteps()
+        {
+            TMPage tmobj = new TMPage();
+            tmobj.CreateTm(driver);
+        }
+        [Test,Order(2)]
+        public void Editsteps()
+        {
+            TMPage tmobj = new TMPage();
+            tmobj.EditTm(driver);
+        }
+        [Test,Order(3)]
+        public void Deletesteps()  
+        {
+            TMPage tmobj = new TMPage();
+            tmobj.DeleteTm(driver);
+        }
+        [TearDown]
+        public void closetestrun()
+        {
+            driver.Quit();
+        }
+       
+    }
+}

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace Feb2023.pages
 
             //input description into description textbox
             IWebElement descriptiontextbox = driver.FindElement(By.Id("Description"));
-            descriptiontextbox.SendKeys("feb2023");
+            descriptiontextbox.SendKeys("june2023");
 
 
             //Input price per unit into priceperunit textbox
@@ -40,43 +41,55 @@ namespace Feb2023.pages
             //click on save button
             IWebElement savebutton = driver.FindElement(By.Id("SaveButton"));
             savebutton.Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
+            
             // click on goto last
             IWebElement gotolast = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             gotolast.Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
+            
 
             IWebElement newcode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
             //Thread.Sleep(1000);
-            if (newcode.Text == "feb2023")
-            {
-                Console.WriteLine("Recored created successfully");
-            }
-            else
-            {
-                Console.WriteLine("Not added");
-            }
+            IWebElement newdes = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            Assert.That(newcode.Text == "feb2023", "Actual code and exxpected code do not match");
+            Assert.That(newdes.Text == "june2023", "Actual code and expected code do not match");
+            //if (newcode.Text == "feb2023")
+            //{
+            //    Console.WriteLine("Recored created successfully");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Not added");
+            //}
 
         }
         public void EditTm(IWebDriver driver)
         {
+            IWebElement last = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]"));
+            last.Click();
+            
             IWebElement editbtn = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
             editbtn.Click();
-
+            //*[@id="tmsGrid"]/div[3]/table/tbody/tr[3]/td[1]
+            //*[@id="tmsGrid"]/div[3]/table/tbody/tr[7]/td[5]/a[1]
             //clear record from code textbox
-            IWebElement clrcode = driver.FindElement(By.Id("Code"));
+            IWebElement clrcode = driver.FindElement(By.XPath("//*[@id=\"Code\"]"));
             clrcode.Clear();
-            IWebElement edttextbox = driver.FindElement(By.Id("Code"));
+            
+            IWebElement edttextbox = driver.FindElement(By.XPath("//*[@id=\"Code\"]"));
             edttextbox.SendKeys("march2023");
 
             //Click on save button to edit the record
             IWebElement savebtn = driver.FindElement(By.Id("SaveButton"));
             savebtn.Click();
-            Thread.Sleep(2000);
+            
 
+            Thread.Sleep(2000);
             IWebElement lastbtnclick = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             lastbtnclick.Click();
             Thread.Sleep(3000);
+            //*[@id="tmsGrid"]/div[4]/a[4]/span
 
             IWebElement editedrecored = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
             //*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]
@@ -92,6 +105,8 @@ namespace Feb2023.pages
         }
         public void DeleteTm(IWebDriver driver)
         {
+            IWebElement last = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]"));
+            last.Click();
             IWebElement delrecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
             delrecord.Click();
             Thread.Sleep(1000);
@@ -102,7 +117,7 @@ namespace Feb2023.pages
             Thread.Sleep(1000);
 
             IWebElement delre = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
-            if (delre.Text == "june2023")
+            if (delre.Text == "march2023")
             {
                 Console.WriteLine("Record not deleted successfully");
             }
