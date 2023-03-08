@@ -69,10 +69,19 @@ namespace Feb2023.pages
             IWebElement last = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]"));
             last.Click();
             
-            IWebElement editbtn = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
-            editbtn.Click();
+            
             //*[@id="tmsGrid"]/div[3]/table/tbody/tr[3]/td[1]
             //*[@id="tmsGrid"]/div[3]/table/tbody/tr[7]/td[5]/a[1]
+            IWebElement recoredtobeedit = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            if (recoredtobeedit.Text == "feb2023") 
+            {
+                IWebElement editbtn = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
+                editbtn.Click();
+            }
+            else
+            {
+                Assert.Fail("record to be edited not found");
+            }
             //clear record from code textbox
             IWebElement clrcode = driver.FindElement(By.XPath("//*[@id=\"Code\"]"));
             clrcode.Clear();
@@ -93,23 +102,32 @@ namespace Feb2023.pages
 
             IWebElement editedrecored = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
             //*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]
-            if (editedrecored.Text == "march2023")
-            {
-            Console.WriteLine("Record in code textbox edited successfully");
+            Assert.That(editedrecored.Text == "march2023", "Actual code and exxpected code do not match");
+            //if (editedrecored.Text == "march2023")
+            //{
+            //Console.WriteLine("Record in code textbox edited successfully");
 
-            }
-            else
-            {
-            Console.WriteLine("record not edited");
-            }
+            //}
+            //else
+            //{
+            //Console.WriteLine("record not edited");
+            //}
         }
         public void DeleteTm(IWebDriver driver)
         {
             IWebElement last = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]"));
             last.Click();
-            IWebElement delrecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
-            delrecord.Click();
-            Thread.Sleep(1000);
+            IWebElement recoredtobedel = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            if (recoredtobedel.Text == "march2023")
+            {
+                IWebElement delrecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
+                delrecord.Click();
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Assert.Fail("record to be delet not found");
+            }
 
             // Click on ok button
             IAlert al = driver.SwitchTo().Alert();
@@ -117,14 +135,16 @@ namespace Feb2023.pages
             Thread.Sleep(1000);
 
             IWebElement delre = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
-            if (delre.Text == "march2023")
-            {
-                Console.WriteLine("Record not deleted successfully");
-            }
-            else
-            {
-                Console.WriteLine("Record deleted successfully");
-            }
+            Assert.That(delre.Text != "march2023", "record hasn't been deleted");
+
+            //if (delre.Text == "march2023")
+            //{
+            //    Console.WriteLine("Record not deleted successfully");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Record deleted successfully");
+            //}
             driver.Quit();
         }
     }

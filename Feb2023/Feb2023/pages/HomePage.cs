@@ -23,5 +23,16 @@ namespace Feb2023.pages
             tmoption.Click();
             Thread.Sleep(1000);
         }
+
+        public void GoToEmployeesPage(IWebDriver driver)
+        {
+            IWebElement adminstration = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
+            adminstration.Click();
+
+            Wait.waitToBeClicable(driver, "XPath", "/html/body/div[3]/div/div/ul/li[5]/ul/li[2]/a",5);
+            IWebElement employoption = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[2]/a"));
+            employoption.Click();
+            Thread.Sleep(2000);
+        }
     }
 }

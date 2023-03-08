@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using Feb2023.pages;
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +12,18 @@ namespace Feb2023.utilities
 {
     public class Commondriver
     {
-        public static IWebDriver driver;
+        public  IWebDriver driver;
+        [SetUp]
+        public void loginstep()
+        {
+            driver = new ChromeDriver(@"C:\Users\patel\Desktop\Feb2023");
+            LoginPage loginobj = new LoginPage();
+            loginobj.loginmethod(driver);
+        }
+        [TearDown]
+        public void closingsteps()
+        {
+            driver.Quit();
+        }
     }
 }

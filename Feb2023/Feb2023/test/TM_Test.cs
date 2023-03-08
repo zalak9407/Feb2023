@@ -12,35 +12,32 @@ using Feb2023.utilities;
 namespace Feb2023.test
 {
     [TestFixture]
+    [Parallelizable]
     public class TM_Test:Commondriver
     {
-        [SetUp]
-        public void loginsteps()
-        {
-           driver = new ChromeDriver(@"C:\Users\patel\Desktop\Feb2023");
-            LoginPage loginobj = new LoginPage();
-            loginobj.loginmethod(driver);
-
-            HomePage homeobj = new HomePage();
-            homeobj.GoToTmPage(driver);
-        }
+        //page object initialization
+        HomePage homeobj = new HomePage();
+        TMPage tmobj = new TMPage();
+            
+            
+        
         [Test,Order(1)]
         public void createsteps()
         {
-            TMPage tmobj = new TMPage();
-            tmobj.CreateTm(driver);
+        homeobj.GoToTmPage(driver);
+        tmobj.CreateTm(driver);
         }
         [Test,Order(2)]
         public void Editsteps()
         {
-            TMPage tmobj = new TMPage();
-            tmobj.EditTm(driver);
+        homeobj.GoToTmPage(driver);
+        tmobj.EditTm(driver);
         }
         [Test,Order(3)]
         public void Deletesteps()  
         {
-            TMPage tmobj = new TMPage();
-            tmobj.DeleteTm(driver);
+        homeobj.GoToTmPage(driver);
+        tmobj.DeleteTm(driver);
         }
         [TearDown]
         public void closetestrun()
