@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,19 +43,19 @@ namespace Feb2023.pages
             IWebElement savebutton = driver.FindElement(By.Id("SaveButton"));
             savebutton.Click();
             Thread.Sleep(3000);
-            
+
             // click on goto last
             IWebElement gotolast = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             gotolast.Click();
             Thread.Sleep(1000);
-            
 
-            IWebElement newcode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-            //Thread.Sleep(1000);
-            IWebElement newdes = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
-            Assert.That(newcode.Text == "feb2023", "Actual code and exxpected code do not match");
-            Assert.That(newdes.Text == "june2023", "Actual code and expected code do not match");
-            //if (newcode.Text == "feb2023")
+
+            //IWebElement newcode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            ////Thread.Sleep(1000);
+            //IWebElement newdes = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            //Assert.That(newcode.Text == "feb2023", "Actual code and exxpected code do not match");
+            //Assert.That(newdes.Text == "june2023", "Actual code and expected code do not match");
+            ////if (newcode.Text == "feb2023")
             //{
             //    Console.WriteLine("Recored created successfully");
             //}
@@ -62,8 +63,23 @@ namespace Feb2023.pages
             //{
             //    Console.WriteLine("Not added");
             //}
-
         }
+            public string getcode(IWebDriver driver)
+            {
+                IWebElement actualcode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+                return actualcode.Text;
+            }
+        public string getdescription(IWebDriver driver)
+        {
+            IWebElement actualdescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            return actualdescription.Text;
+        }
+        public string getprice(IWebDriver driver)
+        {
+            IWebElement actualprice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
+            return actualprice.Text;
+        }
+
         public void EditTm(IWebDriver driver)
         {
             IWebElement last = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]"));
