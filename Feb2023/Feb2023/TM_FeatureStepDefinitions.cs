@@ -47,5 +47,36 @@ namespace Feb2023
             Assert.That(newdes == "june2023", "Actual code and expected code do not match");
             Assert.That(newprice == "12", "Actual code and expected code do not match");
         }
+        //[When(@"I update '([^']*)' on an existing Time and Material record")]
+        //public void WhenIUpdateOnAnExistingTimeAndMaterialRecord(string description)
+        //{
+        //    throw new PendingStepException();
+        //}
+
+        //[Then(@"The record should have the updated '([^']*)'")]
+        //public void ThenTheRecordShouldHaveTheUpdated(string description)
+        //{
+        //    throw new PendingStepException();
+        //}
+
+        [When(@"I update '([^']*)', '([^']*)', '([^']*)' on an existing time and material record")]
+        public void WhenIUpdateOnAnExistingTimeAndMaterialRecord(string description, string code, string price)
+        {
+            tmobj.EditTm(driver, description, code, price);
+
+        }
+
+        [Then(@"The record should have the updated '([^']*)', '([^']*)', '([^']*)'")]
+        public void ThenTheRecordShouldHaveTheUpdated(string description, string code, string price)
+        {
+            string editedDescription = tmobj.GetEditedDescription(driver);
+            string editedCode = tmobj.GetEditedCode(driver);
+            string editedPrice = tmobj.GetEditedPrice(driver);
+
+            Assert.That(editedDescription == description, "Actual description and expected description do not match.");
+            Assert.That(editedCode == code, "Actual code and expected code do not match.");
+            Assert.That(editedPrice == price, "Actual price and expected price do not match.");
+
+        }
+        }
     }
-}

@@ -31,7 +31,7 @@ namespace Feb2023.test
         public void Editsteps()
         {
         homeobj.GoToTmPage(driver);
-        tmobj.EditTm(driver);
+        //tmobj.EditTm(driver);
         }
         [Test,Order(3)]
         public void Deletesteps()  
@@ -39,11 +39,7 @@ namespace Feb2023.test
         homeobj.GoToTmPage(driver);
         tmobj.DeleteTm(driver);
         }
-        [TearDown]
-        public void closetestrun()
-        {
-            driver.Quit();
-        }
+       
        
     }
 }
