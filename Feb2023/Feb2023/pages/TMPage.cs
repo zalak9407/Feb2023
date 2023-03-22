@@ -201,9 +201,13 @@ namespace Feb2023.pages
             }
 
             // Click on ok button
-            IAlert al = driver.SwitchTo().Alert();
-            al.Accept();
-            Thread.Sleep(1000);
+            // IAlert al = driver.SwitchTo().Alert();
+            // al.Accept();
+            //Thread.Sleep(1000);
+            driver.SwitchTo().Alert().Accept();
+
+            driver.Navigate().Refresh();
+            Thread.Sleep(2000);
 
             IWebElement delre = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
             Assert.That(delre.Text != "march2023", "record hasn't been deleted");

@@ -16,7 +16,7 @@ namespace Feb2023.utilities
         [SetUp]
         public void loginstep()
         {
-            driver = new ChromeDriver(@"C:\Users\patel\Desktop\Feb2023");
+            driver = new ChromeDriver();
             LoginPage loginobj = new LoginPage();
             loginobj.loginmethod(driver);
         }
